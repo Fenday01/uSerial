@@ -1,0 +1,3 @@
+# Ignore object files and compiled libraries
+*.o
+*.a
