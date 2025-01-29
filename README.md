@@ -1,7 +1,11 @@
+# uSerial
+
+## Description
 uSerial Library is a C library that that takes different veriable formats a prints them out a serial port
 
 the user must provide a serial write function that can write character arrays to the serial port.
 
+## Usage
 useage is relitivly selfe explanitary. the print options are below.
 
 *Decimal Format Printing*
@@ -29,11 +33,12 @@ printDouble(double value)     Prints a double-precision floating-point number (d
 printBool(bool value)         Prints a boolean value (bool), displaying true or false.
 
 
-
+## setup
 basic setup is outlined below,
 
 the user provides a basic function that prints strings to a serial port, like the below example.
 
+```c
 void putstr(const char *buffer)
 {
   uint8_t ptr = 0;
@@ -44,10 +49,13 @@ void putstr(const char *buffer)
     ptr++;
     }
 }
+```
 
 that function is then assigned to uSerial like below. in this instance we called it debug.
 
+```c
 uSerial debug;
 uSerial_init(&debug, putstr);
+```
 
 you can make as many instances as you need if other ports need writing to.
