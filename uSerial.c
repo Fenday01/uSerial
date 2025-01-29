@@ -69,14 +69,14 @@ void uSerial_uint32ToDec_func(uint32_t value) {
 void uSerial_uint64ToDec_func(uint64_t value) {
     char buffer[USERIAL_BUFFER_SIZE];
     int i = USERIAL_BUFFER_SIZE - 2;
-    buffer[i + 1] = '\0';  // Null terminator
+    buffer[i + 1] = '\0';
 
     do {
         buffer[i--] = '0' + (value % 10);
         value /= 10;
     } while (value > 0);
 
-    uSerial_sendBuffer(&buffer[i + 1]);  // Send only the valid part
+    uSerial_sendBuffer(&buffer[i + 1]);
 }
 
 /*-------------------------
@@ -100,7 +100,6 @@ void uSerial_uint32ToHex_func(uint32_t value) {
 void uSerial_uint64ToHex_func(uint64_t value) {
     char buffer[USERIAL_BUFFER_SIZE];
 
-    // Manually format 64-bit value as hex
     uint32_t high = (uint32_t)(value >> 32);  // Upper 32 bits
     uint32_t low = (uint32_t)(value & 0xFFFFFFFF);  // Lower 32 bits
 
@@ -152,12 +151,10 @@ void uSerial_printFloat_func(float value) {
       end--;
   }
 
-  // Remove the decimal point if nothing follows it
   if (*end == '.') {
       *end = '\0';
   }
 
-  // Add negative sign if needed
   if (isNegative) {
       char temp[USERIAL_BUFFER_SIZE];
       snprintf(temp, sizeof(temp), "-%s", buffer);
