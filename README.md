@@ -1,12 +1,39 @@
 # uSerial
 
 ## Description
-uSerial Library is a C library that that takes different veriable formats a prints them out a serial port
+uSerial is a C library containing verious functions that allow the user to send different veriable types over a serial port
 
-the user must provide a serial write function that can write character arrays to the serial port.
+The user must provide a serial write function that can write character arrays to a serial port. This function is then assigned to uSerial and used to print the results of its veriable to string conversions.
+
+## Setup
+The user provides a basic function that prints char arrays to a serial port, like the below example.
+
+```c
+void putstr(const char *buffer)
+{
+  uint8_t ptr = 0;
+
+  while (buffer[ptr] != '\0')
+    {
+    LEUART_Tx(LEUART0, buffer[ptr]);
+    ptr++;
+    }
+}
+```
+
+That function is then assigned to uSerial like below. In this instance we called it debug, and then print a uint8_t in binary format.
+
+```c
+uint8_t test = 0x4b
+
+uSerial debug;
+uSerial_init(&debug, putstr);
+
+debug.uint8ToBin(test);
+```
 
 ## Usage
-useage is relitivly selfe explanitary. the print options are below.
+Useage is relitivly selfe explanitary. the print options are below.
 
 ### Decimal Format Printing
 
@@ -44,29 +71,4 @@ printDouble(double value)     //Prints a double-precision floating-point number 
 printBool(bool value)         //Prints a boolean value (bool), displaying true or false.
 ```
 
-## Setup
-basic setup is outlined below,
 
-the user provides a basic function that prints strings to a serial port, like the below example.
-
-```c
-void putstr(const char *buffer)
-{
-  uint8_t ptr = 0;
-
-  while (buffer[ptr] != '\0')
-    {
-    LEUART_Tx(LEUART0, buffer[ptr]);
-    ptr++;
-    }
-}
-```
-
-that function is then assigned to uSerial like below. in this instance we called it debug.
-
-```c
-uSerial debug;
-uSerial_init(&debug, putstr);
-```
-
-you can make as many instances as you need if other ports need writing to.
