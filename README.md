@@ -24,11 +24,10 @@ void putstr(const char *buffer)
 That function is then assigned to uSerial like below. In this instance we called it debug, and then print a uint8_t in binary format.
 
 ```c
-uint8_t test = 0x4b
-
 uSerial debug;
 uSerial_init(&debug, putstr);
 
+uint8_t test = 0x4b
 debug.uint8ToBin(test);
 ```
 
